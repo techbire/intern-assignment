@@ -1,6 +1,7 @@
 export function formatDate(date) {
-  if (date instanceof Date && !Number.isNaN(date.getTime())) {
-    return date.toLocaleDateString("en-IN", {
+  const d = date instanceof Date ? date : new Date(date);
+  if (!Number.isNaN(d.getTime())) {
+    return d.toLocaleDateString("en-IN", {
       day: "numeric",
       month: "short",
       year: "numeric",
@@ -13,5 +14,8 @@ export function formatDate(date) {
 }
 
 export function dateValue(date) {
-  return date;
+  if (date instanceof Date) return date.getTime();
+  if (date) return new Date(date).getTime();
+  return 0;
 }
+
